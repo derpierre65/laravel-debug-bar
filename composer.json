@@ -8,6 +8,6 @@
         }
     ],
     "require": {
-        "illuminate/support": "^8.37"
+        "illuminate/support": "^7.0|^8.0"
     }
 }
