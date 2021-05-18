@@ -1,0 +1,13 @@
+{
+    "name": "derpierre65/laravel-debug-bar",
+    "description": "",
+    "authors": [
+        {
+            "name": "derpierre65",
+            "email": "git@derpierre65.de"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^8.37"
+    }
+}
