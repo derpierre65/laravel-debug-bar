@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class LaravelDebugBar
 {
-    public static function getDebug(): array
+    public static function getDebug(bool $formatFilesize = false): array
     {
         // fallback if LARAVEL_START is undefined
         if (!defined('LARAVEL_START')) {
@@ -17,7 +17,7 @@ class LaravelDebugBar
         }
 
         $queries = DB::connection()->getQueryLog();
-        $executionTime = round(microtime(true) - LARAVEL_START, 2);
+        $executionTime = round(microtime(true) - LARAVEL_START, 2) * 1000;
 
         $queryTypes = [
             'select' => 0,
@@ -35,11 +35,12 @@ class LaravelDebugBar
         }
 
         $queryTypes = array_merge(['all' => count($queries)], $queryTypes);
+        $memoryPeakUsage = memory_get_peak_usage(true);
 
         return [
-            'queries' => json_encode($queryTypes),
-            'queryLog' => json_encode($queries),
-            'memoryPeak' => self::formatFilesize(memory_get_peak_usage(true)),
+            'queries' => $queryTypes,
+            'queryLog' => $queries,
+            'memoryPeak' => $formatFilesize ? self::formatFilesize($memoryPeakUsage) : $memoryPeakUsage,
             'executionTime' => $executionTime,
             'executionTimeDebug' => round(microtime(true) - LARAVEL_START, 2),
         ];
