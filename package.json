@@ -1,0 +1,13 @@
+{
+	"name": "@derpierre65/laravel-debug-bar",
+	"version": "1.0.0",
+	"license": "MIT",
+	"keywords": [
+		"debug bar",
+		"laravel",
+		"debug"
+	],
+	"author": "derpierre65",
+	"repository": "git@github.com:derpierre65/laravel-debug-bar.git",
+	"main": "resources/js/LaravelDebugBar.js"
+}

@@ -35,6 +35,7 @@ export default {
 	padding: 10px;
 	cursor: pointer;
 	display: inline-flex;
+	align-items: center;
 }
 
 .ldb-toolbar-item-icon > svg,

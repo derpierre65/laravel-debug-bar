@@ -5,8 +5,16 @@ Laravel Debug Bar for Laravel, with a Vue component.
 
 ## Installation
 
+
+### Laravel
 ```
 composer require derpierre65/laravel-debug-bar
+```
+
+### Vue
+
+```
+npm i @derpierre65/laravel-debug-bar
 ```
 
 ## Configuration
@@ -28,7 +36,7 @@ Import the Vue Component DebugBar.vue to your project like:
 </template>
 
 <script>
-import DebugBar from '../vendor/derpierre65/laravel-debug-bar/resources/js/DebugBar.vue';
+import DebugBar from '@derpierre65/laravel-debug-bar/resources/js/DebugBar.vue';
 
 export default {
   components: {DebugBar},
@@ -41,7 +49,7 @@ export default {
 #### Axios example
 
 ```js
-import {addXmlHttpRequest} from '../vendor/derpierre65/laravel-debug-bar/resources/js/LaravelDebugBar';
+import {addXmlHttpRequest} from '@derpierre65/laravel-debug-bar/resources/js/LaravelDebugBar';
 
 // only in non production mode
 if (process.env.NODE_ENV !== 'production') {
@@ -103,8 +111,8 @@ if (process.env.NODE_ENV !== 'production') {
 </template>
 
 <script>
-import DebugBar from '../vendor/derpierre65/laravel-debug-bar/resources/js/DebugBar.vue';
-import DebugToolbarAction from '../vendor/derpierre65/laravel-debug-bar/resources/js/DebugToolbarAction.vue';
+import DebugBar from '@derpierre65/laravel-debug-bar/resources/js/DebugBar.vue';
+import DebugToolbarAction from '@derpierre65/laravel-debug-bar/resources/js/DebugToolbarAction.vue';
 
 export default {
   components: {DebugBar, DebugToolbarAction},
