@@ -118,11 +118,11 @@ export default {
 	components: { DebugIcon, DebugToolbarItem },
 	props: {
 		queryColorFunction: Function,
+		isMinimized: Boolean,
 	},
 	data() {
 		return {
-			minimized: false,
-
+			minimized: this.isMinimized,
 			xhrs,
 			memoryUsage: null,
 			memoryUsageLabel: '',
@@ -135,6 +135,9 @@ export default {
 		this.updateXHR();
 	},
 	watch: {
+		minimized() {
+			this.$emit('minimized', this.minimized);
+		},
 		xhrs() {
 			this.updateXHR();
 		},
