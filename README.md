@@ -112,10 +112,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 <script>
 import DebugBar from '@derpierre65/laravel-debug-bar/resources/js/DebugBar.vue';
-import DebugToolbarAction from '@derpierre65/laravel-debug-bar/resources/js/DebugToolbarAction.vue';
+import DebugToolbarItem from '@derpierre65/laravel-debug-bar/resources/js/DebugToolbarItem';
 
 export default {
-  components: {DebugBar, DebugToolbarAction},
+  components: {DebugBar, DebugToolbarItem},
 }
 </script>
 ```

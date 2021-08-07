@@ -89,7 +89,7 @@
 				</template>
 			</debug-toolbar-item>
 			<template v-else>
-				<debug-toolbar-item value="1.0.0">
+				<debug-toolbar-item value="1.0.1">
 					<template #icon>
 						<debug-icon />
 					</template>
@@ -117,13 +117,34 @@ export default {
 	name: 'DebugBar',
 	components: { DebugIcon, DebugToolbarItem },
 	props: {
+		/**
+		 * overwrite the default query color function
+		 *
+		 * @param {Number} queryCount
+		 *
+		 * @return string return would be prefixed with "ldb-toolbar-status-" and used as background color for the sql query count
+		 */
 		queryColorFunction: Function,
+		/**
+		 * set to true, to minimize the debug bar as default (overwritten by localstorage value on initialization)
+		 */
 		isMinimized: Boolean,
+		/**
+		 * set to true, to disable the localStorage minimized feature
+		 */
+		disableLocalStorage: Boolean,
+		/**
+		 * set the local storage key, which is used to save the minimized state.
+		 */
+		localStorageMinimizedKey: {
+			type: String,
+			default: 'laravel-debug-bar.minimized',
+		},
 	},
 	data() {
 		return {
-			minimized: this.isMinimized,
 			xhrs,
+			minimized: this.isMinimized,
 			memoryUsage: null,
 			memoryUsageLabel: '',
 			executionTime: null,
@@ -134,9 +155,29 @@ export default {
 	created() {
 		this.updateXHR();
 	},
+	mounted() {
+		if (this.disableLocalStorage) {
+			return;
+		}
+
+		// set value from local storage
+		this.minimized = !!window.localStorage.getItem(this.localStorageMinimizedKey);
+	},
 	watch: {
 		minimized() {
 			this.$emit('minimized', this.minimized);
+
+			if (this.disableLocalStorage) {
+				return;
+			}
+
+			// update the local storage entry
+			if (this.minimized) {
+				window.localStorage.setItem(this.localStorageMinimizedKey, 'true');
+			}
+			else {
+				window.localStorage.removeItem(this.localStorageMinimizedKey);
+			}
 		},
 		xhrs() {
 			this.updateXHR();
@@ -178,6 +219,10 @@ export default {
 			return time.toFixed(2);
 		},
 		queryColor() {
+			if (typeof this.queryColorFunction === 'function') {
+				return this.queryColorFunction(this.queries.all);
+			}
+
 			if (this.queries.all <= 50) {
 				return 'green';
 			}
